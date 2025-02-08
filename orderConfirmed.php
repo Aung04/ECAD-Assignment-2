@@ -1,6 +1,7 @@
+<!-- Linh --->
 <?php 
 session_start(); // Detect the current session
-include("header.php"); // Include the Page Layout header
+include("header.php"); 
 
 if(isset($_SESSION["OrderID"])) {	
 	echo "<p>Checkout successful. Your order number is $_SESSION[OrderID]</p>";
@@ -8,5 +9,5 @@ if(isset($_SESSION["OrderID"])) {
 	echo '<a href="index.php">Continue shopping</a></p>';
 } 
 
-include("footer.php"); // Include the Page Layout footer
+include("footer.php"); 
 ?>

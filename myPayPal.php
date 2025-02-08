@@ -1,3 +1,4 @@
+<!-- Linh --->
 <?php
 $PayPalMode 		= 'sandbox'; // sandbox or live
 $PayPalApiUsername 	= 'sb-4cetz37397649@business.example.com'; 		//PayPal API Username
