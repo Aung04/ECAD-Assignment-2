@@ -216,10 +216,6 @@ $totalAmountIncludingTax = $totalAmount + $tax;
                     <div class="mb-3" id="costMessage" style="text-align: right">
                         <!-- Cost message will be displayed here -->
                     </div>
-                    <div class="text-end">
-                        <input type="submit" value="Checkout" class="btn btn-success">
-                        
-                    </div>
                 </form>
             </div>
         </div>
@@ -257,12 +253,18 @@ $totalAmountIncludingTax = $totalAmount + $tax;
                 costMessage.textContent = 'Delivery Charge: $10'; // Assuming express delivery charge is $10
             }
         }
+        
     }
 
     // Trigger the function on page load to ensure the correct delivery charge is displayed initially
     updateDeliveryCharge();
 </script>
-
+<?php 
+// Add PayPal Checkout button on the shopping cart page
+echo "<form method='post' action='checkoutProcess.php'>";
+echo "<input type='image' style='float:right;'
+       src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'>";
+echo "</form></p>";	?>
 
 
 
