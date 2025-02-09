@@ -11,19 +11,12 @@ include("navbar.php");
 </div>
 
 <?php
-include_once("/mysqlConn.php");
+include_once("mysqlConn.php");
 
-if (!isset($conn)) {
-    die("Database connection not established. Please check mysqlConn.php.");
-}
-
-$qry = "SELECT * FROM Product WHERE Offered = 1 ORDER BY ProductTitle ASC";
+$qry = "SELECT * FROM Product WHERE Offered = 1
+        ORDER BY ProductTitle ASC";
 $result = mysqli_query($conn, $qry);
-
-if (!$result) {
-    die("Query failed: " . mysqli_error($conn)); // Show the exact MySQL error
-}
-
+$queryresult = mysqli_num_rows($result);
 
 echo "<div class='container' mx-auto style='padding-top:20px; padding-bottom:100px; padding-left:20px;'>";
 echo "<div class='row justify-content-center'>";
