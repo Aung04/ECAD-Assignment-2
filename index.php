@@ -11,7 +11,7 @@ include("navbar.php");
 </div>
 
 <?php
-include_once("../mysqlConn.php");
+include_once("/mysqlConn.php");
 
 if (!isset($conn)) {
     die("Database connection not established. Please check mysqlConn.php.");
