@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("navbar.php");
 include 'db.php';
 // Fetch categories
 $category_sql = "SELECT * FROM Category ORDER BY CatName ASC";
