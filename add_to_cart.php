@@ -15,7 +15,8 @@ if (isset($_POST['action'])) {
     }
 }
 
-function addItem() {
+function addItem()
+{
     // Check if the user is logged in
     if (!isset($_SESSION["ShopperID"])) {
         // Redirect to the login page if the session variable ShopperID is not set
@@ -24,7 +25,7 @@ function addItem() {
     }
 
     // Include the database connection file
-    include_once("mysql_conn.php");
+    include_once("db.php");
 
     // Check if a shopping cart exists; if not, create a new shopping cart
     if (!isset($_SESSION["Cart"])) {
@@ -60,7 +61,8 @@ function addItem() {
     exit();
 }
 
-function updateItem() {
+function updateItem()
+{
     // Check if the shopping cart exists
     if (!isset($_SESSION["Cart"])) {
         // Redirect to the login page if the session variable Cart is not set
@@ -69,9 +71,9 @@ function updateItem() {
     }
 
     // Include the database connection file
-    include_once("mysql_conn.php");
+    include_once("db.php");
 
-    // ... (your existing code for updating items)
+
 
     // Close the database connection
     $conn->close();
@@ -81,7 +83,8 @@ function updateItem() {
     exit();
 }
 
-function removeItem() {
+function removeItem()
+{
     // Check if the shopping cart exists
     if (!isset($_SESSION["Cart"])) {
         // Redirect to the login page if the session variable Cart is not set

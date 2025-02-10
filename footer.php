@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,12 +92,13 @@
     }
   </style>
 </head>
+
 <body>
   <footer class="footer">
     <div class="footer-container">
       <!-- Footer Logo and Description -->
       <div class="footer-about">
-        <h2 class="footer-logo">BabyCare</h2>
+        <h2 class="footer-logo">Blossom BabyCare</h2>
         <p>Your one-stop shop for all your baby's needs.</p>
       </div>
 
@@ -142,4 +144,5 @@
     </div>
   </footer>
 </body>
+
 </html>

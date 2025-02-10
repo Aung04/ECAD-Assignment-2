@@ -27,7 +27,7 @@ function addItem()
     }
 
     // Include the database connection file
-    include_once("mysqlConn.php");
+    include_once("db.php");
 
     // Check if a shopping cart exists; if not, create a new shopping cart
     $cartQuery = "SELECT ShopCartID FROM ShopCart WHERE ShopperID = $shopperID AND OrderPlaced = 0";
@@ -106,7 +106,7 @@ function updateItem()
     }
 
     // Include the database connection file
-    include_once("mysqlConn.php");
+    include_once("db.php");
 
 
     $productID = $_POST['product_id'];
@@ -147,7 +147,7 @@ function removeItem()
     }
 
     // Include the database connection file
-    include_once("mysqlConn.php");
+    include_once("db.php");
 
     // ... (your existing code for removing items)
     $productID = $_POST['product_id'];

@@ -1,7 +1,7 @@
 <?php
 // delete_cart.php
 
-include_once('mysqlConn.php');
+include_once('db.php');
 
 // Get shopper ID from the session
 session_start();
