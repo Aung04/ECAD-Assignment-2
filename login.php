@@ -6,9 +6,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<?php
-include("navbar.php");
-?>
+
+
 
 <div class="container-fluid ps-md-0">
   <div class="row g-0 justify-content-center">
