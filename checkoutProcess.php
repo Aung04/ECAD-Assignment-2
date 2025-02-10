@@ -1,6 +1,5 @@
 <!-- Linh --->
 <?php
-session_start();
 include("navbar.php"); // Include the Page Layout header
 include_once("myPayPal.php"); // Include the file that contains PayPal settings
 include_once("db.php");

@@ -142,7 +142,7 @@
 
         <ul class="menu">
             <li><a href="index.php">Home</a></li>
-            <li><a href="product.php">Products</a></li>
+            <li><a href="index.php">Products</a></li>
             <li><a href="Shopping_cart.php">Shopping Cart</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="logout.php">Logout</a></li>

@@ -1,11 +1,8 @@
 <?php
-session_start();
-
 
 // Include database connection
 include_once('db.php');
 include_once('cartFunctions.php');
-include("navbar.php");
 include("checkoutProcess.php");
 
 
