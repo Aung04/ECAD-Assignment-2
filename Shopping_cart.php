@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 
 // Include database connection
-include_once('mysqlConn.php');
+include_once('db.php');
 include_once('cartFunctions.php');
 include("navbar.php");
 include("checkoutProcess.php");
@@ -117,7 +117,7 @@ $totalAmountIncludingTax = $totalAmount + $tax;
             </thead>
             <tbody>
                 <?php
-                $totalItems=0;
+                $totalItems = 0;
                 mysqli_data_seek($result, 0); // Reset result set to the beginning
                 while ($row = mysqli_fetch_assoc($result)) {
                     $total = $row['Price'] * $row['Quantity'];
@@ -158,7 +158,7 @@ $totalAmountIncludingTax = $totalAmount + $tax;
 
         // Check if the subtotal is more than S$200
         $shippingCharge = ($totalAmount > 200) ? 0 : 5; // Assuming regular charge is S$5
-
+        
         // Calculate the total amount including tax, shipping charge, and items in the cart
         $totalAmountIncludingAll = $totalAmount + $tax + $shippingCharge;
         ?>
@@ -195,76 +195,80 @@ $totalAmountIncludingTax = $totalAmount + $tax;
         }
         ?>
 
-<?php if ($allowCheckout): ?>
-    <div class="container mt-5">
-        <div class="row justify-content-end">
-            <div class="col-md-6 offset-md-6">
-                <form method="post" action="checkout.php" class="checkout-form">
-                    <div class="mb-3">
-                        <label for="DeliveryMode" class="form-label">Delivery Mode </label>
-                        <div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="DeliveryMode" id="normalDelivery" value="Normal" checked>
-                                <label class="form-check-label" for="normalDelivery">Normal Delivery (Delivered within 2 days.)</label>
+        <?php if ($allowCheckout): ?>
+            <div class="container mt-5">
+                <div class="row justify-content-end">
+                    <div class="col-md-6 offset-md-6">
+                        <form method="post" action="checkout.php" class="checkout-form">
+                            <div class="mb-3">
+                                <label for="DeliveryMode" class="form-label">Delivery Mode </label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="DeliveryMode" id="normalDelivery"
+                                            value="Normal" checked>
+                                        <label class="form-check-label" for="normalDelivery">Normal Delivery (Delivered
+                                            within 2 days.)</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="DeliveryMode"
+                                            id="expressDelivery" value="Express">
+                                        <label class="form-check-label" for="expressDelivery">Express Delivery (Delivered
+                                            within 24 hours.)</label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="DeliveryMode" id="expressDelivery" value="Express">
-                                <label class="form-check-label" for="expressDelivery">Express Delivery (Delivered within 24 hours.)</label>
+                            <div class="mb-3" id="costMessage" style="text-align: right">
+                                <!-- Cost message will be displayed here -->
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="mb-3" id="costMessage" style="text-align: right">
-                        <!-- Cost message will be displayed here -->
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-<?php else: ?>
-    
-<?php endif; ?>
+        <?php else: ?>
 
-<script>
-    // Get radio buttons and cost message element
-    const normalDeliveryRadio = document.getElementById('normalDelivery');
-    const expressDeliveryRadio = document.getElementById('expressDelivery');
-    const costMessage = document.getElementById('costMessage');
+        <?php endif; ?>
 
-    // Event listener for radio button changes
-    normalDeliveryRadio.addEventListener('change', updateDeliveryCharge);
-    expressDeliveryRadio.addEventListener('change', updateDeliveryCharge);
+        <script>
+            // Get radio buttons and cost message element
+            const normalDeliveryRadio = document.getElementById('normalDelivery');
+            const expressDeliveryRadio = document.getElementById('expressDelivery');
+            const costMessage = document.getElementById('costMessage');
 
-    // Function to update delivery charge based on selected radio button
-    function updateDeliveryCharge() {
-        // Get the selected delivery mode
-        const deliveryMode = document.querySelector('input[name="DeliveryMode"]:checked').value;
+            // Event listener for radio button changes
+            normalDeliveryRadio.addEventListener('change', updateDeliveryCharge);
+            expressDeliveryRadio.addEventListener('change', updateDeliveryCharge);
 
-        // Get the total amount
-        const totalAmount = <?php echo $totalAmount; ?>;
+            // Function to update delivery charge based on selected radio button
+            function updateDeliveryCharge() {
+                // Get the selected delivery mode
+                const deliveryMode = document.querySelector('input[name="DeliveryMode"]:checked').value;
 
-        // Update the delivery charge message based on the selected mode and total amount
-        if (totalAmount > 200) {
-            costMessage.textContent = 'Delivery Charge: Free (Express Delivery)';
-            expressDeliveryRadio.checked = true; // Automatically select express delivery
-        } else {
-            if (deliveryMode === 'Normal') {
-                costMessage.textContent = 'Delivery Charge: $5'; // Assuming normal delivery charge is $5
-            } else {
-                costMessage.textContent = 'Delivery Charge: $10'; // Assuming express delivery charge is $10
+                // Get the total amount
+                const totalAmount = <?php echo $totalAmount; ?>;
+
+                // Update the delivery charge message based on the selected mode and total amount
+                if (totalAmount > 200) {
+                    costMessage.textContent = 'Delivery Charge: Free (Express Delivery)';
+                    expressDeliveryRadio.checked = true; // Automatically select express delivery
+                } else {
+                    if (deliveryMode === 'Normal') {
+                        costMessage.textContent = 'Delivery Charge: $5'; // Assuming normal delivery charge is $5
+                    } else {
+                        costMessage.textContent = 'Delivery Charge: $10'; // Assuming express delivery charge is $10
+                    }
+                }
+
             }
-        }
-        
-    }
 
-    // Trigger the function on page load to ensure the correct delivery charge is displayed initially
-    updateDeliveryCharge();
-</script>
-<?php 
-// Add PayPal Checkout button on the shopping cart page
-echo "<form method='post' action='checkoutProcess.php'>";
-echo "<input type='image' style='float:right;'
+            // Trigger the function on page load to ensure the correct delivery charge is displayed initially
+            updateDeliveryCharge();
+        </script>
+        <?php
+        // Add PayPal Checkout button on the shopping cart page
+        echo "<form method='post' action='checkoutProcess.php'>";
+        echo "<input type='image' style='float:right;'
        src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'>";
-echo "</form></p>";	?>
+        echo "</form></p>"; ?>
 
 
 
@@ -276,7 +280,8 @@ echo "</form></p>";	?>
         integrity="sha384-En1XJoxhJhBKUEzPBv7n8WpgwR2YzcV9It3zU0dR9fojWAtWwQC2wJ6gFk1Awgw5"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
 
     <?php include("footer.php"); ?>
 </body>
